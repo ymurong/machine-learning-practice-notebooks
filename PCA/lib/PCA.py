@@ -11,7 +11,7 @@ class PCA:
         self.type = ["gda", "sga"]
 
     def fit(self, X, eta=0.01, n_iters=1e4, type="gda"):
-        """获得数据集X的前n个主成分"""
+        """获得数据集X的前n_components (k) 个主成分"""
         assert self.n_components <= X.shape[1], \
             "n_components must not be greater than the feature number of X"
 
@@ -72,6 +72,8 @@ class PCA:
             if pca_method == "sga":
                 return first_component_by_sgd(X_pca, initial_w, n_iters)
 
+
+        # 计算前k个主成分
         X_pca = demean(X)
         self.components_ = np.empty(shape=(self.n_components, X.shape[1]))
         for i in range(self.n_components):
